@@ -18,4 +18,31 @@ firestoreExport(collectionRef)
     .then(data=>console.log(data));
 
 
-
+    var arr = require('./data').arr;
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/"; // Your mongodb url here
+    
+    
+    for (i = 0; i < 2; i++) { 
+      console.log(arr[i]);
+    }
+    
+    
+    
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("scrubcardshop");
+      for ( i =0; i < arr.length; i++) {
+        
+        dbo.collection("yugiohcards").insert(arr[i], function(err, res) {
+          
+        if (err) throw err;
+          
+        console.log("The document got inserted.");
+          
+          
+        });       
+      }
+        
+      db.close();
+    });
