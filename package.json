@@ -1,7 +1,6 @@
 {
   "name": "QuarrelsomeMisguidedDestination",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "mongodb": "^3.6.0"
   }
 }
