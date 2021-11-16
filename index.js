@@ -11,15 +11,16 @@ const fs = require('fs');
 
 pokemon.configure({apiKey: '89e242cc-48fc-407e-8abf-77fd2f8e65e6'});
 
+const DB = 'TheTradingFloor'
 
 const yugiohArgs = {
   cardData: 'https://db.ygoprodeck.com/api/v7/cardinfo.php',
-  collection: 'yugiohcards',
+  collection: 'YugiohCards',
 }
 
 const pokemonArgs = {
   cardSets: 'https://api.pokemontcg.io/v2/sets',
-  collection: 'pokemoncards'
+  collection: 'PokemonCards'
 }
 
 async function uploadYugiohCards(url, collectionName) {
@@ -28,7 +29,7 @@ async function uploadYugiohCards(url, collectionName) {
       const data = response.data.data
       client = await MongoClient.connect(dburl); 
 
-      const dbo =  await client.db('scrubcardshop');
+      const dbo =  await client.db(DB);
       const addedCards =  data.map( async (card) => {
         const res = await dbo.collection(collectionName).insertOne(card)
         return res;
@@ -129,8 +130,8 @@ async function getPokemonCardsByArray(collectionName) {
   })
 }
 
-// uploadYugiohCards(yugiohArgs.cardData, yugiohArgs.collection);
+uploadYugiohCards(yugiohArgs.cardData, yugiohArgs.collection);
 
 // getPokemonSets(pokemonArgs.cardSets);
 
-getPokemonCardsByArray(pokemonArgs.collection)
+// getPokemonCardsByArray(pokemonArgs.collection)
